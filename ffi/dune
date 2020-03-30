@@ -1,0 +1,13 @@
+(library
+ (name xkbcommon_ffi_f)
+ (public_name xkbcommon.ffi_f)
+ (modules generated_types ffi)
+ (flags (:standard -w -9-27))
+ (libraries xkbcommon_types_f ctypes ctypes.stubs))
+
+(executable
+ (name stubgen)
+ (modules stubgen)
+ (libraries xkbcommon_ffi_f ctypes.stubs ctypes))
+
+(rule (with-stdout-to "generated_types.ml" (run "../types/types_stubgen.exe")))

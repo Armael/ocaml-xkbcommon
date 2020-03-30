@@ -22,8 +22,6 @@ type flag =
 
 type flags = flag list
 
-let _ = Unsigned.UInt64.of_int64
-
 let flags_of_uint64 x =
   let open Types.Context_flag in
   let u = Unsigned.UInt64.of_int64 in
@@ -48,7 +46,9 @@ let uint64_of_flags l =
 let flags : flags typ =
   view ~read:flags_of_uint64 ~write:uint64_of_flags uint64_t
 
-type t = Types.Context.t
+let _ = flags
+
+type t = Types.Context.t ptr
 
 let create ?(flags = []) () =
   Bindings.xkb_context_new (uint64_of_flags flags)

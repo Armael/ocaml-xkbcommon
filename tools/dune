@@ -1,0 +1,5 @@
+(executable
+ (name translate_keysyms)
+ (modules translate_keysyms translate_keysyms_lex))
+
+(ocamllex translate_keysyms_lex)
