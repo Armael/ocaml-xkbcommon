@@ -1,16 +1,13 @@
+opam-version: "2.0"
 maintainer: "Armael <armael@isomorphis.me>"
 authors: "Armael <armael@isomorphis.me>"
 homepage: "https://github.com/Armael/ocaml-xkbcommon"
 bug-reports: "https://github.com/Armael/ocaml-xkbcommon/issues"
-opam-version: "1.2"
-build: [
-  ["jbuilder" "build" "-p" name "-j" jobs]
-]
 depends: [
 #  "conf-xkbcommon"
+  "ocaml" {>= "4.04.1"}
   "ctypes"
   "ctypes-foreign"
-  "jbuilder"                {build & >= "1.0+beta12"}
-  "configurator"
+  "dune"
 ]
-available: [ ocaml-version >= "4.04.1" ]
+build: ["dune" "build" "-p" name "-j" jobs "@install"]
