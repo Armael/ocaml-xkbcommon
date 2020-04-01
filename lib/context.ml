@@ -23,7 +23,7 @@ type flag =
 type flags = flag list
 
 let flags_of_uint64 x =
-  let open Types.Context_flag in
+  let open Types.Context_flags in
   let u = Unsigned.UInt64.of_int64 in
   (some_if (x &&& u _XKB_CONTEXT_NO_DEFAULT_INCLUDES)
      No_default_includes) @::
@@ -32,7 +32,7 @@ let flags_of_uint64 x =
   []
 
 let uint64_of_flags l =
-  let open Types.Context_flag in
+  let open Types.Context_flags in
   let open Unsigned.UInt64 in
   let open Infix in
   let u = Unsigned.UInt64.of_int64 in
@@ -49,6 +49,10 @@ let flags : flags typ =
 let _ = flags
 
 type t = Types.Context.t ptr
+let t = ptr Types.Context.t
 
 let create ?(flags = []) () =
-  Bindings.xkb_context_new (uint64_of_flags flags)
+  let ctx = Bindings.xkb_context_new (uint64_of_flags flags) in
+  if is_null ctx then None else Some ctx
+
+let unref = Bindings.xkb_context_unref
