@@ -56,3 +56,11 @@ let create ?(flags = []) () =
   if is_null ctx then None else Some ctx
 
 let unref = Bindings.xkb_context_unref
+
+let with_new ?flags ~fail f =
+  let ctx = create ?flags () in
+  match ctx with
+  | None -> fail ()
+  | Some ctx ->
+    Fun.protect ~finally:(fun () -> unref ctx)
+      (fun () -> f ctx)

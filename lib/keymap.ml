@@ -15,3 +15,10 @@ let new_from_names (ctx: Context.t) names =
   if is_null keymap then None else Some keymap
 
 let unref = Bindings.xkb_keymap_unref
+
+let with_new_from_names (ctx: Context.t) names ~fail f =
+  match new_from_names ctx names with
+  | None -> fail ()
+  | Some keymap ->
+    Fun.protect ~finally:(fun () -> unref keymap)
+      (fun () -> f keymap)

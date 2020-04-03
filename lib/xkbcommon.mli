@@ -13,6 +13,9 @@ module Context : sig
   type t
   val t : t Ctypes.typ
 
+  val with_new : ?flags:flags -> fail:(unit -> 'a) -> (t -> 'a) -> 'a
+
+  (** low level: prefer using [with_new] *)
   val create : ?flags:flags -> unit -> t option
   val unref : t -> unit
 end
@@ -34,6 +37,12 @@ module Keymap : sig
   type t
   val t : t Ctypes.typ
 
+  val with_new_from_names :
+    Context.t -> Rule_names.t ->
+    fail:(unit -> 'a) -> (t -> 'a) ->
+    'a
+
+  (* low level: prefer using [with_new_from_*] *)
   val new_from_names : Context.t -> Rule_names.t -> t option
   val unref : t -> unit
 end
