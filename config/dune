@@ -1,7 +1,7 @@
 (executables
  (names discover)
  (flags (:standard -safe-string))
- (libraries base stdio configurator))
+ (libraries base stdio dune.configurator))
 
 (rule
  (targets xkbcommon-ccopt.sexp

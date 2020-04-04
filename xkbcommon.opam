@@ -9,5 +9,7 @@ depends: [
   "ctypes"
   "ctypes-foreign"
   "dune"
+  "base" { build }
+  "stdio" { build }
 ]
 build: ["dune" "build" "-p" name "-j" jobs "@install"]
